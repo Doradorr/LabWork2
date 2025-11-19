@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VectorTreeExample
 {
-    // ---------------- КЛАС ВЕКТОРА ----------------
+
     public class Vector : IComparable<Vector>
     {
         public double X { get; set; }
@@ -18,10 +18,8 @@ namespace VectorTreeExample
             Z = z;
         }
 
-        // Обчислення довжини вектора
         public double Length() => Math.Sqrt(X * X + Y * Y + Z * Z);
 
-        // Порівняння за довжиною
         public int CompareTo(Vector other)
         {
             return this.Length().CompareTo(other.Length());
@@ -33,7 +31,7 @@ namespace VectorTreeExample
         }
     }
 
-    // ---------------- УЗАГАЛЬНЕНЕ БІНАРНЕ ДЕРЕВО ----------------
+    
     public class Node<T>
     {
         public T Data;
@@ -79,7 +77,6 @@ namespace VectorTreeExample
             Preorder(root);
         }
 
-        // Реалізація ітератора
         public IEnumerator<T> GetEnumerator()
         {
             return PreorderEnumerator(root).GetEnumerator();
@@ -96,14 +93,12 @@ namespace VectorTreeExample
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
-    // ---------------- ОСНОВНА ПРОГРАМА ----------------
     class Program
     {
         static void Main()
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-            // 1️⃣ Масив векторів
+            
             Vector[] array = {
                 new Vector(1, 2, 3),
                 new Vector(3, 4, 5),
@@ -114,7 +109,6 @@ namespace VectorTreeExample
             foreach (var v in array)
                 Console.WriteLine(v);
 
-            // 2️⃣ Generic List
             List<Vector> list = new List<Vector>(array);
             list.Add(new Vector(2, 2, 2));
             list.RemoveAt(0);
@@ -124,7 +118,6 @@ namespace VectorTreeExample
             foreach (var v in list)
                 Console.WriteLine(v);
 
-            // 3️⃣ Non-generic ArrayList
             ArrayList arrayList = new ArrayList(list);
             arrayList.Add(new Vector(7, 7, 7));
             arrayList.RemoveAt(1);
@@ -133,14 +126,12 @@ namespace VectorTreeExample
             foreach (var v in arrayList)
                 Console.WriteLine(v);
 
-            // 4️⃣ Бінарне дерево векторів
             BinaryTree<Vector> tree = new BinaryTree<Vector>();
             foreach (var v in list)
                 tree.Insert(v);
 
             tree.DisplayPreorder();
 
-            // 5️⃣ Демонстрація ітератора
             Console.WriteLine("\nПеребір дерева через foreach:");
             foreach (var v in tree)
                 Console.WriteLine(v);
